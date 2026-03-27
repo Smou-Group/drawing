@@ -249,16 +249,12 @@
         </form>
 
         <div class="actions">
-          <button class="btn primary" type="button" id="previewBtn">معاينة التقرير</button>
-          <button class="btn success" type="button" id="pdfBtn">إنشاء PDF</button>
-          <button class="btn warn" type="button" id="waBtn">فتح واتساب بالملخص</button>
-          <button class="btn" type="button" id="apiBtn">إرسال إلى السيرفر</button>
+          <button class="btn success" type="button" id="autoSendBtn">إنشاء PDF وإرسال واتساب</button>
         </div>
 
         <div class="status" id="statusText">جاهز لتعبئة النموذج.</div>
         <div class="note">
-          هذا الكود يقوم بـ: تعبئة البيانات + إنشاء PDF + فتح واتساب برسالة جاهزة.<br>
-          للإرسال التلقائي لملف PDF إلى واتساب يجب ربطه بسيرفر أو API خارجية.
+          هذا الزر ينفذ مسارًا مبسطًا: إنشاء ملف PDF ثم فتح مشاركة واتساب أو نافذة المشاركة بالجهاز حسب المتاح.
         </div>
       </div>
     </div>
@@ -389,46 +385,29 @@
       return { pdf, fileName, data };
     }
 
-    document.getElementById('previewBtn').addEventListener('click', () => {
-      const data = fillPdfTemplate();
-      statusText.textContent = `تم تحديث المعاينة للعميل: ${data.clientName || '-'}`;
-      alert('تم تجهيز التقرير الداخلي للمعاينة قبل إنشاء PDF.');
-    });
-
-    document.getElementById('pdfBtn').addEventListener('click', async () => {
-      try { await generatePdf(); }
-      catch (err) { console.error(err); statusText.textContent = 'حدث خطأ أثناء إنشاء الـ PDF'; }
-    });
-
-    document.getElementById('waBtn').addEventListener('click', async () => {
-      const data = getFormData();
-      const message = makeSummaryMessage(data);
-      const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
-      statusText.textContent = 'تم فتح واتساب برسالة جاهزة. أرفق ملف الـ PDF يدويًا أو اربطه بسيرفر للإرسال التلقائي.';
-    });
-
-    document.getElementById('apiBtn').addEventListener('click', async () => {
+    document.getElementById('autoSendBtn').addEventListener('click', async () => {
       try {
-        const data = getFormData();
+        const { pdf, fileName, data } = await generatePdf();
+        const blob = pdf.output('blob');
+        const file = new File([blob], fileName, { type: 'application/pdf' });
+        const text = makeSummaryMessage(data);
 
-        // استبدل الرابط التالي برابط السيرفر أو Google Apps Script أو webhook الخاص بك
-        const ENDPOINT = 'https://YOUR-SERVER-URL/api/preliminary-layout';
+        if (navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
+          await navigator.share({
+            title: 'SMOU Preliminary Layout Report',
+            text,
+            files: [file]
+          });
+          statusText.textContent = 'تم إنشاء PDF وفتح المشاركة المباشرة.';
+          return;
+        }
 
-        const response = await fetch(ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            submittedAt: new Date().toISOString(),
-            ...data
-          })
-        });
-
-        if (!response.ok) throw new Error('Server error');
-        statusText.textContent = 'تم إرسال البيانات إلى السيرفر بنجاح.';
+        const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+        statusText.textContent = 'تم إنشاء PDF وفتح واتساب. قد تحتاج لإرفاق الملف يدويًا إذا لم يدعم الجهاز مشاركة الملفات مباشرة.';
       } catch (err) {
         console.error(err);
-        statusText.textContent = 'فشل الإرسال إلى السيرفر. عدل رابط الـ API أولاً.';
+        statusText.textContent = 'حدث خطأ أثناء إنشاء التقرير أو مشاركته.';
       }
     });
   </script>
