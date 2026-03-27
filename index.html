@@ -144,8 +144,31 @@
 
         <form id="layoutForm" class="grid">
           <div class="field">
-            <label class="label">اسم المندوب <small>Representative Name</small></label>
-            <input name="representativeName" placeholder="أدخل اسم المندوب" required>
+            <label class="label">اسم مقدم الطلب <small>Applicant Name</small></label>
+            <select name="representativeName" required>
+              <option value="">اختر اسم مقدم الطلب</option>
+              <option>Sayed Samak - سيد سمك</option>
+              <option>Moustafa AboTaleb - مصطفى ابوطالب</option>
+              <option>Ahmed Salah - احمد صلاح</option>
+              <option>Amir Nabil - امير نبيل</option>
+              <option>Mohamed Hany - محمد هاني</option>
+              <option>Ahmad Taha - احمد طه</option>
+              <option>Ahmad Al-Maghazi - احمد المغازي</option>
+              <option>Omar Shalash - عمر شلش</option>
+              <option>Mohamed Al-Saoudi - محمد السعودي</option>
+              <option>Maher Amer - ماهر عامر</option>
+              <option>Raouf Al-Mishir - رؤوف المشير</option>
+              <option>Ahmad Abdullah - احمد عبدالله</option>
+              <option>Abdulhadi Al-Hariri - عبدالهادي الحريري</option>
+              <option>Ahmad Al-Dinari - احمد الديناري</option>
+              <option>Mohamed Gamal - محمد جمال</option>
+              <option>Rami Moussa - رامي موسى</option>
+              <option>Yousry Fayez - يسري فايز</option>
+              <option>Mostafa Aswad - مصطفى اسود</option>
+              <option>Hossam Radi - حسام راضي</option>
+              <option>Ahmad Al-Attar - احمد العطار</option>
+              <option>Mohamed Saqr - محمد صقر</option>
+            </select>
           </div>
 
           <div class="field">
@@ -276,7 +299,7 @@
 
     <table class="pdf-table">
       <tr><th colspan="2" class="pdf-section">Client Data — بيانات العميل</th></tr>
-      <tr><th>اسم المندوب / Representative Name</th><td id="v_representativeName"></td></tr>
+      <tr><th>اسم مقدم الطلب / Applicant Name</th><td id="v_representativeName"></td></tr>
       <tr><th>نوع المخطط / Drawing Type</th><td id="v_drawingType"></td></tr>
       <tr><th>اسم العميل / Client Name</th><td id="v_clientName"></td></tr>
       <tr><th>رقم القطعة / Plot Number</th><td id="v_plotNumber"></td></tr>
@@ -333,7 +356,7 @@
     function makeSummaryMessage(data){
       return [
         'طلب مخطط مبدئي',
-        `اسم المندوب: ${data.representativeName || '-'}`,
+        `اسم مقدم الطلب: ${data.representativeName || '-'}`,
         `نوع المخطط: ${data.drawingType || '-'}`,
         `اسم العميل: ${data.clientName || '-'}`,
         `رقم القطعة: ${data.plotNumber || '-'}`,
