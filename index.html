@@ -1,94 +1,520 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<title>كشف العائلة</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SMOU GROUP — مجموعة سمو</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --navy:#0b1b2b;
+  --navy2:#12324f;
+  --glass:rgba(255,255,255,.10);
+  --glass2:rgba(255,255,255,.14);
+  --border:rgba(255,255,255,.18);
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.82);
+  --shadow:0 12px 35px rgba(0,0,0,.28);
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  font-family:"Tajawal",sans-serif;
+  background:#071320;
+  color:var(--text);
+}
+
 body{
-  font-family: Tahoma, Arial;
-  background:#f7f7f7;
-  padding:20px;
+  min-height:100vh;
 }
-h2{margin-bottom:10px}
-input{
-  padding:10px;
-  width:300px;
-  font-size:16px;
+
+.hero{
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 16px 40px;
+  background:
+    linear-gradient(180deg, rgba(8,24,40,.70), rgba(5,15,26,.85));
 }
-table{
+
+.bgVideo{
+  position:absolute;
+  inset:0;
   width:100%;
-  border-collapse:collapse;
-  margin-top:15px;
-  background:#fff;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+  pointer-events:none;
 }
-th,td{
-  border:1px solid #ccc;
-  padding:10px;
-  text-align:right;
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at top center, rgba(28,111,173,.28), transparent 35%),
+    linear-gradient(180deg, rgba(0,0,0,.48), rgba(0,0,0,.66));
+  z-index:1;
 }
-th{
-  background:#0f5c6e;
+
+.container{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:1120px;
+  margin:auto;
+}
+
+.topBox{
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.logo{
+  width:82px;
+  height:82px;
+  margin:0 auto 18px;
+  border-radius:22px;
+  background:rgba(255,255,255,.12);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backdrop-filter:blur(10px);
+  box-shadow:var(--shadow);
+}
+
+.logo img{
+  width:84%;
+  height:84%;
+  object-fit:contain;
+}
+
+h1{
+  margin:0;
+  font-size:clamp(28px,4vw,58px);
+  line-height:1.25;
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+p.subtitle{
+  margin:12px 0 0;
+  font-size:clamp(16px,2vw,23px);
+  color:var(--muted);
+  font-weight:500;
+}
+
+.portalCard{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:28px;
+  padding:22px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 20px 55px rgba(0,0,0,.30);
+}
+
+.section{
+  margin-top:8px;
+}
+
+.section + .section{
+  margin-top:26px;
+}
+
+.sectionHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.sectionTitle{
+  font-size:20px;
+  font-weight:700;
   color:#fff;
 }
-tr:nth-child(even){background:#f2f2f2}
-.note{color:#666;margin-top:8px}
+
+.divider{
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.28), rgba(255,255,255,0));
+  border-radius:999px;
+}
+
+.buttons{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  min-height:74px;
+  padding:16px 18px;
+  text-decoration:none;
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+  line-height:1.35;
+  border-radius:22px;
+  background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(10px);
+  box-shadow:var(--shadow);
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.btn:hover{
+  transform:translateY(-5px);
+  background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.10));
+  box-shadow:0 22px 45px rgba(0,0,0,.36);
+}
+
+.iconGrid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:14px;
+}
+
+.iconBtn{
+  text-decoration:none;
+  color:#fff;
+  min-height:62px;
+  padding:14px 10px;
+  border-radius:18px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(10px);
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  font-weight:700;
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.iconBtn:hover{
+  transform:translateY(-4px);
+  background:var(--glass2);
+  box-shadow:0 18px 40px rgba(0,0,0,.35);
+}
+
+.locationGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+
+.locationBtn{
+  text-decoration:none;
+  color:#fff;
+  min-height:126px;
+  padding:16px 12px;
+  border-radius:22px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(10px);
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.locationBtn:hover{
+  transform:translateY(-4px);
+  background:var(--glass2);
+  box-shadow:0 18px 40px rgba(0,0,0,.35);
+}
+
+.pinIcon{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+}
+
+.pinIcon svg{
+  width:28px;
+  height:28px;
+  fill:#fff;
+}
+
+.locationOffice{
+  font-size:14px;
+  color:rgba(255,255,255,.82);
+  font-weight:500;
+}
+
+.locationName{
+  font-size:17px;
+  font-weight:800;
+}
+
+.footerNote{
+  text-align:center;
+  margin-top:18px;
+  font-size:14px;
+  color:rgba(255,255,255,.72);
+}
+
+/* Tablet */
+@media (max-width:992px){
+  .buttons{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .iconGrid{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+
+  .locationGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width:768px){
+  .hero{
+    padding:18px 12px 28px;
+  }
+
+  .portalCard{
+    padding:16px;
+    border-radius:22px;
+  }
+
+  .logo{
+    width:70px;
+    height:70px;
+    border-radius:18px;
+  }
+
+  h1{
+    font-size:34px;
+    line-height:1.35;
+  }
+
+  p.subtitle{
+    font-size:17px;
+  }
+
+  .sectionTitle{
+    font-size:17px;
+  }
+
+  .buttons{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .btn{
+    min-height:66px;
+    font-size:17px;
+    padding:14px 16px;
+    border-radius:18px;
+  }
+
+  .iconGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .iconBtn{
+    min-height:56px;
+    font-size:15px;
+    border-radius:16px;
+  }
+
+  .locationGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .locationBtn{
+    min-height:110px;
+    border-radius:18px;
+  }
+
+  .locationName{
+    font-size:15px;
+  }
+
+  .locationOffice{
+    font-size:13px;
+  }
+}
+
+/* Small phones */
+@media (max-width:480px){
+  h1{
+    font-size:28px;
+  }
+
+  p.subtitle{
+    font-size:15px;
+  }
+
+  .iconGrid,
+  .locationGrid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .sectionHeader{
+    align-items:center;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<h2>🔎 البحث باسم العائلة</h2>
+<section class="hero">
 
-<input id="search" placeholder="اكتب اسم العائلة" />
-<div class="note" id="info">يرجى رفع ملف البيانات</div>
-<br><br>
-<input type="file" id="file" accept=".csv">
+<video class="bgVideo" autoplay muted loop playsinline>
+  <source src="back.mp4" type="video/mp4">
+</video>
 
-<table id="table" style="display:none">
-  <thead></thead>
-  <tbody></tbody>
-</table>
+<div class="container">
 
-<script>
-let data=[], headers=[];
-const FAMILY_COL = "العائلة";
+  <div class="topBox">
+    <div class="logo">
+      <img src="logo.png" alt="SMOU GROUP">
+    </div>
 
-document.getElementById("file").addEventListener("change", async e=>{
-  const text = await e.target.files[0].text();
-  const lines = text.trim().split("\n");
-  headers = lines[0].split(",");
-  data = lines.slice(1).map(l=>{
-    let obj={};
-    l.split(",").forEach((v,i)=>obj[headers[i]]=v);
-    return obj;
-  });
-  document.getElementById("info").innerText="تم تحميل البيانات";
-});
+    <h1>
+البوابة الرسمية | مجموعة سمو<br>
+Corporate Portal | SMOU GROUP
+</h1>
+    <p class="subtitle">اختر القسم المطلوب للدخول مباشرة</p>
+  </div>
 
-document.getElementById("search").addEventListener("input",()=>{
-  const q = document.getElementById("search").value.trim();
-  const table = document.getElementById("table");
-  const thead = table.querySelector("thead");
-  const tbody = table.querySelector("tbody");
+  <div class="portalCard">
 
-  if(!q){ table.style.display="none"; return; }
+    <div class="section">
+      <div class="sectionHeader">
+        <div class="sectionTitle">Decoration — الديكورات</div>
+        <div class="divider"></div>
+      </div>
 
-  const norm = s => (s||"").toString().trim().replace(/\s+/g," ");
-const res = data.filter(r => norm(r[FAMILY_COL]).includes(norm(q)));
+      <div class="buttons">
+        <a class="btn" href="https://fuji.smougroup.com/" target="_blank">Fuji Decoration — ديكورات الفوجي</a>
+        <a class="btn" href="https://italy.smougroup.com/" target="_blank">Italian Decoration — ديكورات الإيطالي</a>
+        <a class="btn" href="Cabin Catalouge Fuji.pdf" target="_blank">Fuji Catalogue — كاتلوج الفوجي</a>
+        <a class="btn" href="cataluge- Italy.pdf" target="_blank">Italian Catalogue — كاتلوج الإيطالي</a>
+        <a class="btn" href="fuji-sub-tech.pdf.pdf" target="_blank">TECHNICAL SUBMITTAL Fuji — سابميتال فوجي </a>
+        <a class="btn" href="TECHNICAL SUBMITTAL_ Italy.pdf" target="_blank">Italy Submittal — سابميتال إيطالي</a>
+      </div>
+    </div>
 
-  if(!res.length){
-    document.getElementById("info").innerText="لا توجد نتائج";
-    table.style.display="none";
-    return;
-  }
+    <div class="section">
+      <div class="sectionHeader">
+        <div class="sectionTitle">Documents — المستندات</div>
+        <div class="divider"></div>
+      </div>
 
-  thead.innerHTML="<tr>"+headers.map(h=>`<th>${h}</th>`).join("")+"</tr>";
-  tbody.innerHTML=res.map(r=>"<tr>"+headers.map(h=>`<td>${r[h]||""}</td>`).join("")+"</tr>").join("");
-  table.style.display="table";
-  document.getElementById("info").innerText=`عدد النتائج: ${res.length}`;
-});
-</script>
+      <div class="buttons">
+        <a class="btn" href="https://online.pubhtml5.com/gruby/ofcy/" target="_blank">Profile — البروفايل</a>
+        <a class="btn" href="التراخيص والاعتمادات 2025.pdf" target="_blank">Licenses and Approvals — التراخيص والاعتمادات</a>
+        <a class="btn" href="https://family.smougroup.com/" target="_blank">Family list — كشف العائلات</a>
+        <a class="btn" href="https://area.smougroup.com/" target="_blank">Area list — كشف المناطق</a>
+        <a class="btn" href="https://office.smougroup.com/" target="_blank">Companies list — كشف الشركات</a>
+        <a class="btn" href="important.pdf" target="_blank">Importance of Contracting — أهمية التعاقد</a>
+        <a class="btn" href="company comprise.pdf" target="_blank">Company Compare — مقارنة الشركات</a>
+        <a class="btn" href="labor.pdf" target="_blank">Company Manpower List — كشف العمل والعمال</a>
+        <a class="btn" href="Maintinancelist.pdf" target="_blank">Maintenance list — كشف الصيانة</a>
+        <a class="btn" href="https://vedios.smougroup.com/" target="_blank">Project Handover — تسليم المشاريع</a>
+        <a class="btn" href="https://review.smougroup.com/" target="_blank">Client Reviews — آراء العملاء</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sectionHeader">
+        <div class="sectionTitle">Contact Links — روابط التواصل</div>
+        <div class="divider"></div>
+      </div>
+
+      <div class="iconGrid">
+        <a class="iconBtn" href="https://api.whatsapp.com/send/?phone=971501035499" target="_blank">WhatsApp</a>
+        <a class="iconBtn" href="mailto:info@smou.ae" target="_blank">Email</a>
+        <a class="iconBtn" href="https://smoulift.com/" target="_blank">Website</a>
+        <a class="iconBtn" href="https://www.instagram.com/smou.group/" target="_blank">Instagram</a>
+        <a class="iconBtn" href="https://www.facebook.com/smoulift/" target="_blank">Facebook</a>
+        <a class="iconBtn" href="https://www.tiktok.com/@smou.group" target="_blank">TikTok</a>
+        <a class="iconBtn" href="https://x.com/smou_group" target="_blank">X</a>
+        <a class="iconBtn" href="https://www.linkedin.com/in/smou-group-88a5ba18a/" target="_blank">LinkedIn</a>
+        <a class="iconBtn" href="https://www.pinterest.com/SMOUGROUP/" target="_blank">Pinterest</a>
+        <a class="iconBtn" href="https://www.youtube.com/@smou-group/featured" target="_blank">YouTube</a>
+        <a class="iconBtn" href="https://accounts.snapchat.com/v2/welcome" target="_blank">Snapchat</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sectionHeader">
+        <div class="sectionTitle">Locations — مواقع فروع الإمارات</div>
+        <div class="divider"></div>
+      </div>
+
+      <div class="locationGrid">
+        <a class="locationBtn" href="https://maps.app.goo.gl/8BQZmvxWvN9CycY26" target="_blank">
+          <div class="pinIcon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+          </div>
+          <div class="locationOffice">Branch — فرع</div>
+          <div class="locationName">Dubai — دبي</div>
+        </a>
+
+        <a class="locationBtn" href="https://maps.app.goo.gl/BdN89H2ixf1sw1hz6" target="_blank">
+          <div class="pinIcon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+          </div>
+          <div class="locationOffice">Branch — فرع</div>
+          <div class="locationName">Abu Dhabi — أبوظبي</div>
+        </a>
+
+        <a class="locationBtn" href="https://maps.app.goo.gl/6YnUf5W5Bn8LRvMN7" target="_blank">
+          <div class="pinIcon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+          </div>
+          <div class="locationOffice">Branch — فرع</div>
+          <div class="locationName">Al Ain — العين</div>
+        </a>
+
+        <a class="locationBtn" href="https://maps.app.goo.gl/hS98r6hN2Bytv4Ex9" target="_blank">
+          <div class="pinIcon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+          </div>
+          <div class="locationOffice">Branch — فرع</div>
+          <div class="locationName">Sharjah — الشارقة</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="footerNote">SMOU GROUP © Corporate Portal</div>
+
+  </div>
+</div>
+</section>
 
 </body>
 </html>
