@@ -192,7 +192,7 @@
 
           <div class="field">
             <label class="label">رقم العقد <small>Contract Number</small></label>
-            <input name="contractNumber" placeholder="رقم العقد">
+            <input name="contractNumber" placeholder="رقم العقد" required>
           </div>
 
           <div class="field">
@@ -278,6 +278,8 @@
         <div class="status" id="statusText">جاهز لتعبئة النموذج.</div>
         <div class="note">
           هذا الزر ينفذ مسارًا مبسطًا: إنشاء ملف PDF ثم فتح مشاركة واتساب أو نافذة المشاركة بالجهاز حسب المتاح.
+          <br>
+          <strong>ملاحظة:</strong> لن يتم تنفيذ الطلب بدون إدخال رقم العقد.
         </div>
       </div>
     </div>
@@ -330,6 +332,8 @@
     const form = document.getElementById('layoutForm');
     const statusText = document.getElementById('statusText');
     const pdfTemplate = document.getElementById('pdfTemplate');
+    const contractInput = form.querySelector('[name="contractNumber"]');
+
     const fields = [
       'representativeName','drawingType','clientName','plotNumber','contractNumber','capacity',
       'shaftWidth','shaftDepth','pitDepth','overhead','numberOfStops','rightShoulder','leftShoulder','wallSpecs',
@@ -341,6 +345,22 @@
       const data = {};
       fields.forEach(key => data[key] = (fd.get(key) || '').toString().trim());
       return data;
+    }
+
+    function validateContractNumber(){
+      const contractNumber = contractInput.value.trim();
+
+      if(!contractNumber){
+        statusText.textContent = 'لن يتم تنفيذ الطلب بدون إدخال رقم العقد.';
+        statusText.style.color = '#ffd166';
+        contractInput.focus();
+        contractInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      }
+
+      statusText.textContent = 'جاهز لتعبئة النموذج.';
+      statusText.style.color = '';
+      return true;
     }
 
     function fillPdfTemplate(){
@@ -378,9 +398,20 @@
     }
 
     async function generatePdf(){
+      if (!validateContractNumber()) {
+        throw new Error('Contract number is required');
+      }
+
       fillPdfTemplate();
       statusText.textContent = 'جارٍ إنشاء ملف PDF...';
-      const canvas = await html2canvas(pdfTemplate, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+      statusText.style.color = '';
+
+      const canvas = await html2canvas(pdfTemplate, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      });
+
       const imgData = canvas.toDataURL('image/png');
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF('p', 'mm', 'a4');
@@ -391,6 +422,7 @@
 
       let heightLeft = imgHeight;
       let position = 0;
+
       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
 
@@ -403,34 +435,55 @@
 
       const data = getFormData();
       const fileName = `SMOU-Preliminary-Layout-${(data.clientName || 'Client').replace(/\s+/g,'-')}.pdf`;
+
       pdf.save(fileName);
       statusText.textContent = `تم إنشاء الملف: ${fileName}`;
+      statusText.style.color = '#8ef0b0';
+
       return { pdf, fileName, data };
     }
 
+    contractInput.addEventListener('input', () => {
+      if (contractInput.value.trim()) {
+        statusText.textContent = 'تم إدخال رقم العقد بنجاح.';
+        statusText.style.color = '#8ef0b0';
+      } else {
+        statusText.textContent = 'لن يتم تنفيذ الطلب بدون إدخال رقم العقد.';
+        statusText.style.color = '#ffd166';
+      }
+    });
+
     document.getElementById('autoSendBtn').addEventListener('click', async () => {
       try {
+        if (!validateContractNumber()) return;
+
         const { pdf, fileName, data } = await generatePdf();
         const blob = pdf.output('blob');
         const file = new File([blob], fileName, { type: 'application/pdf' });
         const text = makeSummaryMessage(data);
 
-        if (navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
+        if (navigator.canShare && navigator.share && navigator.canShare({ files: [file] })) {
           await navigator.share({
             title: 'SMOU Preliminary Layout Report',
             text,
             files: [file]
           });
           statusText.textContent = 'تم إنشاء PDF وفتح المشاركة المباشرة.';
+          statusText.style.color = '#8ef0b0';
           return;
         }
 
         const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
         statusText.textContent = 'تم إنشاء PDF وفتح واتساب. قد تحتاج لإرفاق الملف يدويًا إذا لم يدعم الجهاز مشاركة الملفات مباشرة.';
+        statusText.style.color = '#8ef0b0';
       } catch (err) {
         console.error(err);
-        statusText.textContent = 'حدث خطأ أثناء إنشاء التقرير أو مشاركته.';
+
+        if (err.message !== 'Contract number is required') {
+          statusText.textContent = 'حدث خطأ أثناء إنشاء التقرير أو مشاركته.';
+          statusText.style.color = '#ff6b6b';
+        }
       }
     });
   </script>
