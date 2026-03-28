@@ -122,7 +122,13 @@
     .pdf-footer{margin-top:16px;font-size:12px;color:#64748b;text-align:center}
 
     @media (max-width:900px){.grid{grid-template-columns:1fr}}
-    @media (max-width:768px){.portalCard{padding:16px;border-radius:22px}.logo{width:70px;height:70px;border-radius:18px}h1{font-size:34px}.actions{flex-direction:column}.btn{width:100%}}
+    @media (max-width:768px){
+      .portalCard{padding:16px;border-radius:22px}
+      .logo{width:70px;height:70px;border-radius:18px}
+      h1{font-size:34px}
+      .actions{flex-direction:column}
+      .btn{width:100%}
+    }
   </style>
 </head>
 <body>
@@ -199,8 +205,15 @@
             <label class="label">الحمولة <small>Capacity</small></label>
             <select name="capacity" required>
               <option value="">اختر الحمولة</option>
-              <option>320 kg</option><option>450 kg</option><option>630 kg</option><option>800 kg</option>
-              <option>1000 kg</option><option>1150 kg</option><option>1350 kg</option><option>1600 kg</option><option>Other</option>
+              <option>320 kg</option>
+              <option>450 kg</option>
+              <option>630 kg</option>
+              <option>800 kg</option>
+              <option>1000 kg</option>
+              <option>1150 kg</option>
+              <option>1350 kg</option>
+              <option>1600 kg</option>
+              <option>Other</option>
             </select>
           </div>
 
@@ -208,23 +221,57 @@
             <label class="label">مواصفات البئر <small>Shaft Specifications</small></label>
           </div>
 
-          <div class="field"><label class="label">عرض البئر <small>Shaft Width</small></label><input name="shaftWidth" placeholder="مثال: 190 cm صافي"></div>
-          <div class="field"><label class="label">عمق البئر <small>Shaft Depth</small></label><input name="shaftDepth" placeholder="مثال: 170 cm صافي"></div>
-          <div class="field"><label class="label">عمق الحفرة <small>Pit Depth</small></label><input name="pitDepth" placeholder="مثال: 80 cm"></div>
-          <div class="field"><label class="label">الأوفرهيد <small>Overhead</small></label><input name="overhead" placeholder="مثال: 330 cm"></div>
+          <div class="field">
+            <label class="label">عرض البئر <small>Shaft Width</small></label>
+            <input name="shaftWidth" placeholder="مثال: 190 cm صافي">
+          </div>
+
+          <div class="field">
+            <label class="label">عمق البئر <small>Shaft Depth</small></label>
+            <input name="shaftDepth" placeholder="مثال: 170 cm صافي">
+          </div>
+
+          <div class="field">
+            <label class="label">عمق الحفرة <small>Pit Depth</small></label>
+            <input name="pitDepth" placeholder="مثال: 80 cm">
+          </div>
+
+          <div class="field">
+            <label class="label">الأوفرهيد <small>Overhead</small></label>
+            <input name="overhead" placeholder="مثال: 330 cm">
+          </div>
 
           <div class="field">
             <label class="label">عدد الوقفات <small>Number of Stops</small></label>
             <select name="numberOfStops">
               <option value="">اختر</option>
-              <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option>
-              <option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>Other</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>Other</option>
             </select>
           </div>
 
-          <div class="field"><label class="label">مقاس الكتف الأيمن <small>Right Shoulder Dimension</small></label><input name="rightShoulder" placeholder="أدخل المقاس"></div>
-          <div class="field"><label class="label">مقاس الكتف الأيسر <small>Left Shoulder Dimension</small></label><input name="leftShoulder" placeholder="أدخل المقاس"></div>
-          <div class="field full"><label class="label">مواصفات الجدران والأكتاف <small>Wall & Shoulder Specifications</small></label>
+          <div class="field">
+            <label class="label">مقاس الكتف الأيمن <small>Right Shoulder Dimension</small></label>
+            <input name="rightShoulder" placeholder="أدخل المقاس">
+          </div>
+
+          <div class="field">
+            <label class="label">مقاس الكتف الأيسر <small>Left Shoulder Dimension</small></label>
+            <input name="leftShoulder" placeholder="أدخل المقاس">
+          </div>
+
+          <div class="field full">
+            <label class="label">مواصفات الجدران والأكتاف <small>Wall & Shoulder Specifications</small></label>
             <select name="wallSpecs">
               <option value="">اختر</option>
               <option>خرسانة بالكامل</option>
@@ -244,7 +291,9 @@
             <label class="label">عدد أبواب (مداخل الكابينة) <small>Number of Doors (Car Entrances)</small></label>
             <select name="numberOfDoors">
               <option value="">اختر</option>
-              <option>1</option><option>2</option><option>3</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
             </select>
           </div>
 
@@ -252,7 +301,10 @@
             <label class="label">عرض الباب <small>Door Width</small></label>
             <select name="doorWidth">
               <option value="">اختر</option>
-              <option>70 cm</option><option>80 cm</option><option>90 cm</option><option>100 cm</option>
+              <option>70 cm</option>
+              <option>80 cm</option>
+              <option>90 cm</option>
+              <option>100 cm</option>
             </select>
           </div>
 
@@ -273,11 +325,14 @@
 
         <div class="actions">
           <button class="btn success" type="button" id="autoSendBtn">إنشاء PDF وإرسال واتساب</button>
+          <button class="btn primary" type="button" id="pdfOnlyBtn">إنشاء PDF فقط</button>
         </div>
 
         <div class="status" id="statusText">جاهز لتعبئة النموذج.</div>
         <div class="note">
-          هذا الزر ينفذ مسارًا مبسطًا: إنشاء ملف PDF ثم فتح مشاركة واتساب أو نافذة المشاركة بالجهاز حسب المتاح.
+          الزر الأول يقوم بإنشاء ملف PDF ثم فتح واتساب أو نافذة المشاركة حسب الجهاز.
+          <br>
+          الزر الثاني يقوم بإنشاء ملف PDF فقط بدون فتح واتساب.
           <br>
           <strong>ملاحظة:</strong> لن يتم تنفيذ الطلب بدون إدخال رقم العقد.
         </div>
@@ -436,28 +491,34 @@
       const data = getFormData();
       const fileName = `SMOU-Preliminary-Layout-${(data.clientName || 'Client').replace(/\s+/g,'-')}.pdf`;
 
-      pdf.save(fileName);
-      statusText.textContent = `تم إنشاء الملف: ${fileName}`;
-      statusText.style.color = '#8ef0b0';
-
       return { pdf, fileName, data };
     }
 
-    contractInput.addEventListener('input', () => {
-      if (contractInput.value.trim()) {
-        statusText.textContent = 'تم إدخال رقم العقد بنجاح.';
-        statusText.style.color = '#8ef0b0';
-      } else {
-        statusText.textContent = 'لن يتم تنفيذ الطلب بدون إدخال رقم العقد.';
-        statusText.style.color = '#ffd166';
-      }
-    });
+    async function savePdfOnly() {
+      try {
+        if (!validateContractNumber()) return;
 
-    document.getElementById('autoSendBtn').addEventListener('click', async () => {
+        const { pdf, fileName } = await generatePdf();
+        pdf.save(fileName);
+
+        statusText.textContent = `تم إنشاء PDF فقط: ${fileName}`;
+        statusText.style.color = '#8ef0b0';
+      } catch (err) {
+        console.error(err);
+        if (err.message !== 'Contract number is required') {
+          statusText.textContent = 'حدث خطأ أثناء إنشاء ملف PDF.';
+          statusText.style.color = '#ff6b6b';
+        }
+      }
+    }
+
+    async function generatePdfAndSendWhatsApp() {
       try {
         if (!validateContractNumber()) return;
 
         const { pdf, fileName, data } = await generatePdf();
+        pdf.save(fileName);
+
         const blob = pdf.output('blob');
         const file = new File([blob], fileName, { type: 'application/pdf' });
         const text = makeSummaryMessage(data);
@@ -475,17 +536,29 @@
 
         const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
-        statusText.textContent = 'تم إنشاء PDF وفتح واتساب. قد تحتاج لإرفاق الملف يدويًا إذا لم يدعم الجهاز مشاركة الملفات مباشرة.';
+        statusText.textContent = 'تم إنشاء PDF وفتح واتساب. قد تحتاج لإرفاق الملف يدويًا.';
         statusText.style.color = '#8ef0b0';
       } catch (err) {
         console.error(err);
-
         if (err.message !== 'Contract number is required') {
           statusText.textContent = 'حدث خطأ أثناء إنشاء التقرير أو مشاركته.';
           statusText.style.color = '#ff6b6b';
         }
       }
+    }
+
+    contractInput.addEventListener('input', () => {
+      if (contractInput.value.trim()) {
+        statusText.textContent = 'تم إدخال رقم العقد بنجاح.';
+        statusText.style.color = '#8ef0b0';
+      } else {
+        statusText.textContent = 'لن يتم تنفيذ الطلب بدون إدخال رقم العقد.';
+        statusText.style.color = '#ffd166';
+      }
     });
+
+    document.getElementById('autoSendBtn').addEventListener('click', generatePdfAndSendWhatsApp);
+    document.getElementById('pdfOnlyBtn').addEventListener('click', savePdfOnly);
   </script>
 </body>
 </html>
